@@ -11,13 +11,16 @@ image classification, object detection, Semantic Segmentation으로 구성되어
 6. 연구실 바닥을 토대로 labeling을 수행하고 학습 및 테스트.
 
 image classfication
+
 ![image](https://github.com/user-attachments/assets/e6c8bff9-b501-433c-82b1-2fbd68237e2d)
 
 segmantic segmentation
+
 ![image](https://github.com/user-attachments/assets/fb484b2c-451f-4a3d-bae8-3f333af9ad7f)
 ![image](https://github.com/user-attachments/assets/7d8488c2-84bb-41b0-a24d-6d57b7022efd)
 
 데이터 증식 예시.
+
 ![image](https://github.com/user-attachments/assets/1be99300-e0bd-4564-958b-14dd4711548c)
 
 
