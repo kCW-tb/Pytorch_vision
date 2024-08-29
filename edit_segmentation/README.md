@@ -55,14 +55,12 @@ def evaluate(model, data_loader, device, num_classes, epoch, cut_train):
     model.eval()
     confmat = utils.ConfusionMatrix(num_classes)
     metric_logger = utils.MetricLogger(delimiter="  ")
-    #header가 Test로 들어가면 Metric_logger.log_every에서 
     header = f"Test: [{epoch}] cut : " + cut_train
     num_processed_samples = 0
     with torch.inference_mode():
-        #100을 10으로 수정하면 loss값을 계산하긴 하는거같은데...
         for image, target in metric_logger.log_every(data_loader, 30, header):
             image, target = image.to(device), target.to(device)
-            #if문으로 Data_loader가 Val일 때에만 진행해야 함.
+            #if문으로 Data_loader가 Val일 때에만 진행
             scaler = torch.cuda.amp.GradScaler() if args.amp else None
             model_without_ddp = model
             params_to_optimize = [
@@ -109,22 +107,19 @@ def evaluate(model, data_loader, device, num_classes, epoch, cut_train):
 
 evaluate에서 반환되는 confmat객체에 대해 각 클래스 별로 정확도를 뽑아 저장하는 코드.
 ```
-train_one_epoch(model, criterion, optimizer, data_loader, lr_scheduler, device, epoch, args.print_freq, scaler)
-        #loss값 등 출력이 나오는 곳 confmat는 valid data train_confmat는 학습 정확도 등을 출력
+        train_one_epoch(model, criterion, optimizer, data_loader, lr_scheduler, device, epoch, args.print_freq, scaler)
         confmat = evaluate(model, data_loader_test, device=device, num_classes=num_classes, epoch=epoch, cut_train="V")
-        #추가 코드.
         train_confmat = evaluate(model, data_loader, device=device, num_classes=num_classes, epoch=epoch, cut_train="T")
         
         
         print("검증 데이터 acc 및 IoU")
         print("[_background_, floor, blockage]")
         print(confmat)
-        
-        #utils ConfusionMatrix에서 확인이 필요함.
+
         print("훈련 데이터 acc 및 IoU")
         print("[_background_, floor,  blockage]")
         print(train_confmat)
-        #각 클래스별로 정확도 뽑기.
+
         acc_gloval, class_list_acc, ius = confmat.compute()
         class_list_acc = (class_list_acc * 100).tolist()
         
