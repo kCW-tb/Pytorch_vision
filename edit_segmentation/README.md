@@ -142,6 +142,7 @@ train_one_epoch(model, criterion, optimizer, data_loader, lr_scheduler, device, 
 위 코드를 진행하면 acc_data와 train_acc_data 이중리스트 내부에 값이 저장된다.
 
 ![image](https://github.com/user-attachments/assets/f9a09362-bc1b-4771-a460-ba6e883c1423)
+
 저장하는 이중리스트 공간은 main함수 내부 초반에 미리 생성해주었다.
 사진은 총 5개의 클래스로 이루어진(background포함) 코드에 대해서 생성해주었으나 이후에는 3개의 클래스로 줄여 학습하였다.
 
