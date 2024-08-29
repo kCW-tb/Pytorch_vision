@@ -326,7 +326,7 @@ def main(args):
             train_sampler.set_epoch(epoch)
         train_one_epoch(model, criterion, optimizer, data_loader, lr_scheduler, device, epoch, args.print_freq, scaler)
         
-        #loss값 등 출력이 나오는 곳 confmat는 valid data train_confmat는 학습 정확도 등을 출력하고 싶은 느거임.
+        #loss값 등 출력이 나오는 곳 confmat는 valid data train_confmat는 학습 정확도 등을 출력
         confmat = evaluate(model, data_loader_test, device=device, num_classes=num_classes)
         #추가 코드.
         train_confmat = evaluate(model, data_loader, device=device, num_classes=num_classes)
@@ -335,11 +335,9 @@ def main(args):
         print("[_background_, ceiling, floor, wall, blockage]")
         print(confmat)
         
-        #utils ConfusionMatrix에서 확인이 필요함.
         print("훈련 데이터 acc 및 IoU")
         print("[_background_, ceiling, floor, wall, blockage]")
         print(train_confmat)
-        #각 클래스별로 정확도 뽑기.
         acc_gloval, class_list_acc, ius = confmat.compute()
         class_list_acc = (class_list_acc * 100).tolist()
         
@@ -393,7 +391,7 @@ def main(args):
             plt.pause(0.1) #렉걸림 방지.
             display.clear_output(wait=True)
         '''
-        #값을 추가하는거라 마지막 인덱스만 추가해줘야 함.
+   
         '''
         writer.add_scalars(
             'classes_Val_Acc', {'back_ground':acc_data[0][-1],
@@ -420,8 +418,6 @@ def main(args):
             epoch
         )
         
-        
-    #모델의 구조와 가중치 모두를 저장
     torch.save(model_without_ddp, os.path.join(args.output_dir, "model.pth"))
 
     total_time = time.time() - start_time
@@ -465,7 +461,6 @@ def get_args_parser(add_help=True):
     parser.add_argument("--lr-warmup-decay", default=0.01, type=float, help="the decay for lr")
     parser.add_argument("--print-freq", default=10, type=int, help="print frequency") #빈도 에포크별로 출력하는 거
     parser.add_argument("--output-dir", default=".", type=str, help="path to save outputs")
-    #resume 요거 잘 살펴보기.
     parser.add_argument("--resume", default="", type=str, help="path of checkpoint")
     parser.add_argument("--start-epoch", default=0, type=int, metavar="N", help="start epoch")
     parser.add_argument(
